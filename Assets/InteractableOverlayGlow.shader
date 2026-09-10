@@ -16,85 +16,40 @@ Shader "Custom/InteractableOverlayGlow"
         { 
             "RenderType" = "Transparent" 
             "Queue" = "Transparent+100" 
-            "RenderPipeline" = "UniversalRenderPipeline" 
+            "RenderPipeline" = "UniversalPipeline" 
         }
 
-        // PASS 1: Silhouette Outline (Inverted Hull)
         Pass
         {
-            Name "OutlinePass"
-            Cull Front
-            ZWrite Off
-            ZTest LEqual
-            Blend One One // Additive overlay
-
-            HLSLPROGRAM
-            #pragma vertex vert
-            #pragma fragment frag
-            #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
-
-            struct Attributes
-            {
-                float4 positionOS : POSITION;
-                float3 normalOS   : NORMAL;
-            };
-
-            struct Varyings
-            {
-                float4 positionCS : SV_POSITION;
-            };
-
-            CBUFFER_START(UnityPerMaterial)
-                float4 _GlowColor;
-                float _OutlineWidth;
-                float _FresnelPower;
-                float _BlinkSpeed;
-                float _MinGlow;
-                float _MaxGlow;
-            CBUFFER_END
-
-            Varyings vert(Attributes input)
-            {
-                Varyings output;
-                float3 extrudedOS = input.positionOS.xyz + normalize(input.normalOS) * _OutlineWidth;
-                output.positionCS = TransformObjectToHClip(extrudedOS);
-                return output;
-            }
-
-            half4 frag(Varyings input) : SV_Target
-            {
-                float pulse = 0.5 + 0.5 * sin(_Time.y * _BlinkSpeed);
-                float intensity = lerp(_MinGlow, _MaxGlow, pulse);
-                return half4(_GlowColor.rgb * intensity, 1.0);
-            }
-            ENDHLSL
-        }
-
-        // PASS 2: Soft Fresnel Rim Glow (Edges only, center transparent)
-        Pass
-        {
-            Name "FresnelPass"
+            Name "ForwardLit"
+            Tags { "LightMode" = "UniversalForward" }
             Cull Back
             ZWrite Off
             ZTest LEqual
             Blend One One // Additive overlay
 
             HLSLPROGRAM
+            #pragma target 2.0
             #pragma vertex vert
             #pragma fragment frag
+            #pragma multi_compile_instancing
+
             #include "Packages/com.unity.render-pipelines.universal/ShaderLibrary/Core.hlsl"
 
             struct Attributes
             {
-                float4 positionOS : POSITION;
-                float3 normalOS   : NORMAL;
+                float4 positionOS   : POSITION;
+                float3 normalOS     : NORMAL;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
             };
 
             struct Varyings
             {
-                float4 positionCS : SV_POSITION;
-                float3 normalWS   : TEXCOORD0;
-                float3 viewDirWS  : TEXCOORD1;
+                float4 positionCS   : SV_POSITION;
+                float3 normalWS     : TEXCOORD0;
+                float3 viewDirWS    : TEXCOORD1;
+                UNITY_VERTEX_INPUT_INSTANCE_ID
+                UNITY_VERTEX_OUTPUT_STEREO
             };
 
             CBUFFER_START(UnityPerMaterial)
@@ -108,8 +63,14 @@ Shader "Custom/InteractableOverlayGlow"
 
             Varyings vert(Attributes input)
             {
-                Varyings output;
-                float3 positionWS = TransformObjectToWorld(input.positionOS.xyz);
+                Varyings output = (Varyings)0;
+                UNITY_SETUP_INSTANCE_ID(input);
+                UNITY_TRANSFER_INSTANCE_ID(input, output);
+                UNITY_INITIALIZE_VERTEX_OUTPUT_STEREO(output);
+
+                // Slight normal expansion to ensure outline sits just proud of mesh surface
+                float3 extrudedOS = input.positionOS.xyz + normalize(input.normalOS) * _OutlineWidth;
+                float3 positionWS = TransformObjectToWorld(extrudedOS);
                 output.positionCS = TransformWorldToHClip(positionWS);
                 output.normalWS = TransformObjectToWorldNormal(input.normalOS);
                 output.viewDirWS = GetWorldSpaceNormalizeViewDir(positionWS);
@@ -118,6 +79,9 @@ Shader "Custom/InteractableOverlayGlow"
 
             half4 frag(Varyings input) : SV_Target
             {
+                UNITY_SETUP_INSTANCE_ID(input);
+                UNITY_SETUP_STEREO_EYE_INDEX_POST_VERTEX(input);
+
                 float3 n = normalize(input.normalWS);
                 float3 v = normalize(input.viewDirWS);
                 float rim = pow(1.0 - saturate(dot(n, v)), _FresnelPower);
@@ -125,9 +89,12 @@ Shader "Custom/InteractableOverlayGlow"
                 float pulse = 0.5 + 0.5 * sin(_Time.y * _BlinkSpeed);
                 float intensity = lerp(_MinGlow, _MaxGlow, pulse);
 
-                return half4(_GlowColor.rgb * rim * intensity, 1.0);
+                // Additive glow composed of rim + subtle face highlight
+                float glow = rim * 0.85 + 0.15;
+                return half4(_GlowColor.rgb * glow * intensity, 1.0);
             }
             ENDHLSL
         }
     }
+    Fallback "Universal Render Pipeline/Unlit"
 }
