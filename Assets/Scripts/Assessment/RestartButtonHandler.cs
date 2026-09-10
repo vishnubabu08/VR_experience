@@ -3,21 +3,18 @@ using UnityEngine;
 using UnityEngine.UI;
 using Oculus.Interaction;
 using VRTrainingBay.Calibration;
+using VRTrainingBay.Cells;
 
 namespace VRTrainingBay.Assessment
 {
     /// <summary>
     /// Attached directly to the RESTART Button GameObject.
-    /// Runs ONLY when you click the RESTART button.
-    /// 1. Snaps dials back to their console sockets.
-    /// 2. Resets rotation transformer back to 0 so you always rotate to the RIGHT.
-    /// 3. Leaves AssessmentManager and CalibrationDial 100% untouched.
+    /// Cleanly anchors dials and power cells so nothing falls or flips on restart.
     /// </summary>
     [RequireComponent(typeof(Button))]
     public class RestartButtonHandler : MonoBehaviour
     {
         [Header("Console Dials")]
-        [Tooltip("Assign the 3 dials here, or leave empty to auto-find in scene.")]
         [SerializeField] private CalibrationDial[] _dials;
 
         // Exact socket positions on the console
@@ -25,7 +22,10 @@ namespace VRTrainingBay.Assessment
         private static readonly Vector3 Dial0ConsolePos = new Vector3(1.1413469f, -1.0589864f, 0.16735363f);
         private static readonly Vector3 Dial2ConsolePos = new Vector3(1.1887112f, -0.41336882f, 0.1823616f);
 
-        // Saved starting orientations
+        // Exact table spawn position for PowerCell_TypeB_HexBlue
+        private static readonly Vector3 CellBSpawnPos = new Vector3(-1.76f, -0.838f, 2.82f);
+        private static readonly Quaternion CellBSpawnRot = new Quaternion(0.5567052f, 0.43598095f, 0.43598095f, -0.5567052f);
+
         private Quaternion[] _initialRotations;
 
         private void Awake()
@@ -54,11 +54,47 @@ namespace VRTrainingBay.Assessment
             }
         }
 
-        /// <summary>
-        /// Runs ONLY when the RESTART button is clicked.
-        /// </summary>
         public void HandleRestartClick()
         {
+            // 1. Reset PowerCell Type-B position & physics so it never falls down
+            PowerCell[] cells = FindObjectsByType<PowerCell>(FindObjectsSortMode.None);
+            for (int c = 0; c < cells.Length; c++)
+            {
+                if (cells[c] != null && cells[c].CellType == PowerCellType.TypeB_HexBlue)
+                {
+                    cells[c].transform.SetParent(null);
+                    cells[c].transform.SetPositionAndRotation(CellBSpawnPos, CellBSpawnRot);
+
+                    Rigidbody cellRb = cells[c].GetComponent<Rigidbody>();
+                    if (cellRb != null)
+                    {
+                        cellRb.isKinematic = true;
+#if UNITY_6000_0_OR_NEWER
+                        cellRb.linearVelocity = Vector3.zero;
+#else
+                        cellRb.velocity = Vector3.zero;
+#endif
+                        cellRb.angularVelocity = Vector3.zero;
+                        cellRb.position = CellBSpawnPos;
+                        cellRb.rotation = CellBSpawnRot;
+                    }
+
+                    // Ensure colliders are solid
+                    Collider[] cols = cells[c].GetComponents<Collider>();
+                    for (int j = 0; j < cols.Length; j++) cols[j].isTrigger = false;
+
+                    // Re-enable interaction
+                    Grabbable g = cells[c].GetComponent<Grabbable>();
+                    if (g != null) g.enabled = true;
+                    GrabInteractable gi = cells[c].GetComponent<GrabInteractable>();
+                    if (gi != null) gi.enabled = true;
+
+                    Physics.SyncTransforms();
+                    if (cellRb != null) cellRb.isKinematic = false;
+                }
+            }
+
+            // 2. Reset Dials
             if (_dials == null || _dials.Length == 0)
             {
                 _dials = FindObjectsByType<CalibrationDial>(FindObjectsSortMode.None);
@@ -69,7 +105,6 @@ namespace VRTrainingBay.Assessment
                 CalibrationDial dial = _dials[i];
                 if (dial == null) continue;
 
-                // 1. Freeze physics so it never falls
                 Rigidbody rb = dial.GetComponent<Rigidbody>();
                 if (rb != null)
                 {
@@ -84,28 +119,15 @@ namespace VRTrainingBay.Assessment
                     rb.constraints = RigidbodyConstraints.FreezeAll;
                 }
 
-                // 2. Snap position to console socket
-                if (dial.name.Contains("(1)"))
-                {
-                    dial.transform.position = Dial1ConsolePos;
-                }
-                else if (dial.name.Contains("(2)"))
-                {
-                    dial.transform.position = Dial2ConsolePos;
-                }
-                else
-                {
-                    dial.transform.position = Dial0ConsolePos;
-                }
+                if (dial.name.Contains("(1)")) dial.transform.position = Dial1ConsolePos;
+                else if (dial.name.Contains("(2)")) dial.transform.position = Dial2ConsolePos;
+                else dial.transform.position = Dial0ConsolePos;
 
-                // 3. Reset rotation back to starting angle
                 if (_initialRotations != null && i < _initialRotations.Length)
                 {
                     dial.transform.localRotation = _initialRotations[i];
                 }
 
-                // 4. CRITICAL: Reset OneGrabRotateTransformer internal angle to 0
-                // This ensures you rotate to the RIGHT side every single time!
                 OneGrabRotateTransformer transformer = dial.GetComponent<OneGrabRotateTransformer>();
                 if (transformer != null)
                 {
@@ -115,7 +137,6 @@ namespace VRTrainingBay.Assessment
                     typeof(OneGrabRotateTransformer).GetField("_startAngle", flags)?.SetValue(transformer, 0f);
                 }
 
-                // 5. Disable throwing so releasing never drops it
                 Grabbable grabbable = dial.GetComponent<Grabbable>();
                 if (grabbable != null)
                 {
@@ -124,13 +145,13 @@ namespace VRTrainingBay.Assessment
                 }
             }
 
-            // 6. Trigger the normal AssessmentManager reset
+            // 3. Trigger State Reset
             if (AssessmentManager.Instance != null)
             {
                 AssessmentManager.Instance.ResetAssessment();
             }
 
-            Debug.Log("<color=green>[RestartButtonHandler] Dials and rotation angles reset: You can now rotate to the RIGHT side!</color>");
+            Debug.Log("<color=green>[RestartButtonHandler] Dials and Power Cells cleanly reset on tables!</color>");
         }
     }
 }

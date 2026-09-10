@@ -1,5 +1,13 @@
 # VR Technical Training Bay Assessment - Aonix Practical Round
 
+## Submission Deliverables
+- **1. Unity Project & Repository**: [GitHub Repository](https://github.com/vishnubabu08/VR_experience.git) (Branch: `master`)
+- **2. Installable Meta Quest APK**: [Download VRTrainingBay_Quest.apk (Google Drive)](https://drive.google.com/file/d/1T0eKln33ZlLE8SAWyRAkYBG5GTaVO8qx/view?usp=sharing)
+- **3. Video Demonstration (3–5 min)**: [Watch VR_TrainingVideo (Google Drive)](https://drive.google.com/file/d/1n8ZD9GOZVR6x-WgU6cQQsXbmI5nfsYJm/view?usp=sharing)
+- **4. Executive Handoff PDF**: Included in repository at [`Submission_Package/VR_Assessment_Executive_Handoff.pdf`](Submission_Package/VR_Assessment_Executive_Handoff.pdf)
+
+---
+
 ## 1. Project Baseline & Exact Versions
 - **Unity Version**: Unity 6 (6000.3.20f1)
 - **Render Pipeline**: Universal Render Pipeline (URP)
