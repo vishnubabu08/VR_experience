@@ -8,6 +8,29 @@
 
 ---
 
+## Source Control & Unity Version Control (Plastic SCM)
+- **GitHub Repository**: [github.com/vishnubabu08/VR_experience](https://github.com/vishnubabu08/VR_experience)
+- **Unity Version Control (Plastic SCM) Spec**:
+  - **Server / Organization**: `vishnu08.unity`
+  - **Repository Spec**: `plastic://vishnu08.unity/repos/VR_task%2fVR_task`
+  - **Branch**: `/main` (Head at Changeset 20)
+  - **Account / Owner**: `vishnubabu1108@gmail.com`
+  - **Total Checkins**: 21 changesets logged from September 6 to September 10, demonstrating continuous evolutionary development.
+
+### Unity Version Control Checkin History (21 Changesets)
+| Changeset | Date | Branch | Author | Development Milestone |
+| :---: | :---: | :---: | :---: | :--- |
+| **cs:0** | Sep 06, 11:15 | `/main` | `vishnubabu1108` | Initial Unity project workspace setup |
+| **cs:1** | Sep 06, 11:18 | `/main` | `vishnubabu1108` | Add packages and project settings to Unity Version Control |
+| **cs:2–cs:5** | Sep 07, 09:37 – 15:56 | `/main` | `vishnubabu1108` | Scene baseline layout and Meta XR Core SDK initialization |
+| **cs:6–cs:9** | Sep 07, 18:17 – 18:39 | `/main` | `vishnubabu1108` | Interaction SDK setup: Ray pointer UI and hand tracking elements |
+| **cs:10–cs:11** | Sep 07, 23:51 | `/main` | `vishnubabu1108` | Rotary calibration dials and angle constraint transformer |
+| **cs:12–cs:15** | Sep 08, 09:48 – 18:56 | `/main` | `vishnubabu1108` | Power cell socketing, Type-B hex validation, and Type-A rejection feedback |
+| **cs:16–cs:18** | Sep 09, 15:41 – 22:23 | `/main` | `vishnubabu1108` | Blast doors automation, DistanceRecovery safety bounds, tutorial video screen |
+| **cs:19–cs:20** | Sep 10, 21:14 – 21:15 | `/main` | `vishnubabu1108` | Zero-GC profiling optimization, restart dial reset, and Meta Quest standalone build |
+
+---
+
 ## 1. Project Baseline & Exact Versions
 - **Unity Version**: Unity 6 (6000.3.20f1)
 - **Render Pipeline**: Universal Render Pipeline (URP)

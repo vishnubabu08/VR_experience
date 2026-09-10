@@ -366,7 +366,10 @@
             <p>Clean project preserving package manifests &amp; settings. Excludes Library, Temp, Logs, and obj folders.</p>
             <div class="btn-group">
                 <a href="https://github.com/vishnubabu08/VR_experience.git" target="_blank" class="link-btn btn-cyan">GitHub Repo</a>
-                <a href="https://drive.google.com/drive/folders/YOUR_DRIVE_FOLDER_ID" target="_blank" class="link-btn btn-outline">Clean ZIP (Drive)</a>
+                <a href="https://drive.google.com/file/d/1T0eKln33ZlLE8SAWyRAkYBG5GTaVO8qx/view?usp=sharing" target="_blank" class="link-btn btn-outline">Clean ZIP (Drive)</a>
+            </div>
+            <div style="margin-top: 5px; font-size: 9.5px; color: #38bdf8; font-family: monospace; background: rgba(0, 210, 255, 0.08); padding: 2px 6px; border-radius: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                VCS: plastic://vishnu08.unity/repos/VR_task%2fVR_task
             </div>
         </div>
 
@@ -440,32 +443,35 @@
 <div class="page">
 
     <!-- VERSION CONTROL TIMELINE -->
-    <div class="section-title">Version Control &amp; Engineering Evolution</div>
+    <div class="section-title">Unity Version Control &amp; Engineering Evolution</div>
+    <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 7px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 5px 10px; border-radius: 6px;">
+        <strong>Unity Version Control (Plastic SCM):</strong> <code>plastic://vishnu08.unity/repos/VR_task%2fVR_task</code> &bull; <strong>21 Changesets (cs:0 – cs:20)</strong> on branch <code>/main</code> &bull; Owner: <code>vishnubabu1108@gmail.com</code>
+    </div>
     <div class="timeline-box">
         <div class="timeline-step">
             <div class="timeline-dot"></div>
-            <div class="timeline-title">Phase 1 &mdash; Baseline Architecture &amp; Meta Interaction SDK</div>
-            <div class="timeline-desc">Configured project on Unity 6 (6000.3.20f1) URP. Configured OpenXR with Meta Quest feature group, XR Interaction SDK, and world-space ray pointer UI controls.</div>
+            <div class="timeline-title">Phase 1 (cs:0 &ndash; cs:5) &mdash; Project Baseline &amp; Meta Interaction SDK</div>
+            <div class="timeline-desc">Project configured on Unity 6 (6000.3.20f1) URP. Configured OpenXR with Meta Quest feature group, XR Interaction SDK, and world-space ray pointer UI controls.</div>
         </div>
         <div class="timeline-step">
             <div class="timeline-dot"></div>
-            <div class="timeline-title">Phase 2 &mdash; Power Cell Sockets, Reject Mechanism &amp; Safety Bounds</div>
-            <div class="timeline-desc">Implemented <code>CellSocket.cs</code> with type validation (Type-B Hex accepted, Type-A Round rejected with haptic buzz and red LED). Added <code>DistanceRecovery.cs</code> to prevent floor clipping.</div>
+            <div class="timeline-title">Phase 2 (cs:6 &ndash; cs:9) &mdash; Interaction Controls &amp; Distance Safety</div>
+            <div class="timeline-desc">Built ray pointer interaction system, Touch controller bindings, and added <code>DistanceRecovery.cs</code> to prevent cells from falling through floor bounds.</div>
         </div>
         <div class="timeline-step">
             <div class="timeline-dot"></div>
-            <div class="timeline-title">Phase 3 &mdash; Calibration Dial Precision &amp; Door Automation</div>
-            <div class="timeline-desc">Engineered <code>CalibrationDial.cs</code> with 70&deg;&ndash;85&deg; target tolerance, 1.0s continuous hold requirement, and <code>TripleDialCoordinator.cs</code> driving the blast door motors.</div>
+            <div class="timeline-title">Phase 3 (cs:10 &ndash; cs:11) &mdash; Calibration Dial Precision &amp; Constraints</div>
+            <div class="timeline-desc">Engineered <code>CalibrationDial.cs</code> with 70&deg;&ndash;85&deg; target tolerance, 1.0s continuous hold requirement, and rotation transformer constraints.</div>
         </div>
         <div class="timeline-step">
             <div class="timeline-dot"></div>
-            <div class="timeline-title">Phase 4 &mdash; Zero-GC Optimization &amp; Restart State Management</div>
-            <div class="timeline-desc">Created dedicated <code>RestartButtonHandler.cs</code> with reflection-based transformer zeroing to enforce consistent right-side dial rotation and console anchoring. Zero-GC physics buffer pooling.</div>
+            <div class="timeline-title">Phase 4 (cs:12 &ndash; cs:15) &mdash; Power Cell Sockets &amp; Type-A Rejection</div>
+            <div class="timeline-desc">Implemented <code>CellSocket.cs</code> with Type-B Hex validation and Type-A rejection mechanics (haptic buzz, audio error, red LED). Added scale compensation.</div>
         </div>
         <div class="timeline-step">
             <div class="timeline-dot"></div>
-            <div class="timeline-title">Phase 5 &mdash; Standalone Quest Build &amp; URP Shader Multiview Compliance</div>
-            <div class="timeline-desc">Added single-pass stereo instancing macros to <code>InteractableOverlayGlow.shader</code>, fixed UniversalPipeline tags, and generated custom <code>AppIcon_VR</code> for standalone APK launcher.</div>
+            <div class="timeline-title">Phase 5 (cs:16 &ndash; cs:20) &mdash; Automation, Zero-GC Optimization &amp; Standalone APK</div>
+            <div class="timeline-desc">Blast doors coordinator, video screen render texture, <code>RestartButtonHandler.cs</code> dial anchoring, shader multiview fixes, and 86.6 FPS standalone Quest build.</div>
         </div>
     </div>
 
