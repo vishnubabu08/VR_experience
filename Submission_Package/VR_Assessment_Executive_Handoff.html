@@ -6,15 +6,15 @@
     <title>Aonix Practical Assessment - VR Technical Training Bay Handoff</title>
     <style>
         :root {
-            --bg-primary: #0a0e17;
-            --bg-secondary: #111726;
-            --bg-card: #162035;
-            --cyan: #00d2ff;
-            --amber: #ff9d00;
-            --green: #00e676;
-            --text-main: #f1f5f9;
-            --text-muted: #94a3b8;
-            --border: #23324d;
+            --bg-page: #ffffff;
+            --bg-card: #f8fafc;
+            --bg-accent: #0f172a;
+            --text-primary: #090d16;
+            --text-secondary: #475569;
+            --text-muted: #64748b;
+            --border-dark: #0f172a;
+            --border-light: #cbd5e1;
+            --border-card: #e2e8f0;
         }
 
         * {
@@ -32,15 +32,15 @@
         }
 
         body {
-            background-color: var(--bg-primary);
-            color: var(--text-main);
-            line-height: 1.45;
-            padding: 15px;
+            background-color: var(--bg-page);
+            color: var(--text-primary);
+            line-height: 1.42;
+            padding: 10px;
         }
 
         .page {
             page-break-after: always;
-            max-width: 960px;
+            max-width: 920px;
             margin: 0 auto;
         }
 
@@ -50,35 +50,29 @@
 
         /* HEADER */
         .header {
-            background: linear-gradient(135deg, #111726, #162035);
-            border: 1px solid var(--border);
-            border-radius: 12px;
+            border: 2px solid var(--border-dark);
+            border-radius: 8px;
             padding: 16px 20px;
             margin-bottom: 14px;
             display: flex;
             align-items: center;
             justify-content: space-between;
-            position: relative;
-        }
-
-        .header::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, var(--cyan), var(--amber));
+            background: #ffffff;
         }
 
         .header-title h1 {
-            font-size: 20px;
-            font-weight: 800;
-            color: #ffffff;
-            margin-bottom: 4px;
+            font-size: 21px;
+            font-weight: 900;
+            letter-spacing: -0.5px;
+            color: #000000;
+            text-transform: uppercase;
+            margin-bottom: 3px;
         }
 
         .header-title p {
-            font-size: 12px;
-            color: var(--text-muted);
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            font-weight: 500;
         }
 
         .badges {
@@ -88,45 +82,43 @@
         }
 
         .badge {
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 11px;
+            padding: 3px 9px;
+            border-radius: 4px;
+            font-size: 10.5px;
             font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
+            border: 1px solid var(--border-dark);
+            background: #ffffff;
+            color: #000000;
         }
 
-        .badge-cyan { background: rgba(0, 210, 255, 0.15); color: var(--cyan); border: 1px solid rgba(0, 210, 255, 0.4); }
-        .badge-amber { background: rgba(255, 157, 0, 0.15); color: var(--amber); border: 1px solid rgba(255, 157, 0, 0.4); }
-        .badge-green { background: rgba(0, 230, 118, 0.15); color: var(--green); border: 1px solid rgba(0, 230, 118, 0.4); }
+        .badge-solid {
+            background: #000000;
+            color: #ffffff;
+        }
 
         .app-icon {
             width: 72px;
             height: 72px;
-            border-radius: 16px;
-            border: 2px solid rgba(0, 210, 255, 0.5);
-            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+            border-radius: 10px;
+            border: 1.5px solid var(--border-dark);
             object-fit: cover;
         }
 
+        /* SECTION TITLE */
         .section-title {
-            font-size: 14px;
-            font-weight: 700;
+            font-size: 12.5px;
+            font-weight: 800;
             text-transform: uppercase;
-            letter-spacing: 0.8px;
+            letter-spacing: 1px;
             margin: 12px 0 8px 0;
             display: flex;
             align-items: center;
             gap: 8px;
-            color: #ffffff;
-        }
-
-        .section-title::before {
-            content: '';
-            width: 4px;
-            height: 14px;
-            background: var(--cyan);
-            border-radius: 2px;
+            color: #000000;
+            border-bottom: 1.5px solid #000000;
+            padding-bottom: 4px;
         }
 
         /* 4 DELIVERABLES GRID */
@@ -139,8 +131,8 @@
 
         .deliverable-card {
             background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
             padding: 12px 14px;
             position: relative;
         }
@@ -148,52 +140,63 @@
         .card-num {
             position: absolute;
             top: 10px; right: 10px;
-            font-size: 10px;
-            font-weight: 700;
-            color: var(--cyan);
-            background: rgba(0, 210, 255, 0.12);
+            font-size: 9.5px;
+            font-weight: 800;
+            color: #000000;
+            background: #e2e8f0;
             padding: 2px 6px;
             border-radius: 4px;
+            text-transform: uppercase;
         }
 
         .deliverable-card h3 {
-            font-size: 13px;
-            font-weight: 700;
+            font-size: 13.5px;
+            font-weight: 800;
             margin-bottom: 3px;
-            color: #ffffff;
+            color: #000000;
         }
 
         .deliverable-card p {
             font-size: 11px;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             margin-bottom: 8px;
             line-height: 1.35;
-        }
-
-        .btn-group {
-            display: flex;
-            gap: 6px;
         }
 
         .link-btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            flex: 1;
+            width: 100%;
             padding: 7px 10px;
-            border-radius: 6px;
+            border-radius: 5px;
             font-size: 11px;
-            font-weight: 600;
+            font-weight: 700;
             text-decoration: none;
             text-align: center;
+            transition: all 0.15s;
+            cursor: pointer;
         }
 
-        .btn-cyan { background: var(--cyan); color: #0a0e17; }
-        .btn-amber { background: var(--amber); color: #0a0e17; }
+        .btn-solid {
+            background: #000000;
+            color: #ffffff !important;
+            border: 1px solid #000000;
+        }
+
         .btn-outline {
-            background: rgba(255,255,255,0.05);
-            color: var(--text-main);
-            border: 1px solid var(--border);
+            background: #ffffff;
+            color: #000000 !important;
+            border: 1px solid #000000;
+        }
+
+        .url-text {
+            font-size: 9.5px;
+            color: var(--text-muted);
+            margin-top: 5px;
+            word-break: break-all;
+            display: block;
+            text-decoration: none;
         }
 
         /* METRICS ROW */
@@ -205,24 +208,25 @@
         }
 
         .perf-stat {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            background: var(--bg-card);
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
             padding: 8px;
             text-align: center;
         }
 
         .perf-val {
-            font-size: 17px;
-            font-weight: 800;
-            color: var(--green);
+            font-size: 18px;
+            font-weight: 900;
+            color: #000000;
         }
 
         .perf-label {
             font-size: 9px;
+            font-weight: 700;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            color: var(--text-muted);
+            color: var(--text-secondary);
         }
 
         /* EVIDENCE IMAGES */
@@ -234,10 +238,10 @@
         }
 
         .img-card {
-            background: var(--bg-secondary);
-            border: 1px solid var(--border);
-            border-radius: 8px;
-            padding: 8px;
+            background: #ffffff;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
+            padding: 6px;
             text-align: center;
         }
 
@@ -245,22 +249,22 @@
             width: 100%;
             height: 155px;
             object-fit: contain;
-            background: #000;
-            border-radius: 6px;
+            background: #000000;
+            border-radius: 4px;
             margin-bottom: 4px;
         }
 
         .img-caption {
             font-size: 10px;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             font-weight: 600;
         }
 
         /* TIMELINE */
         .timeline-box {
+            border: 1px solid var(--border-light);
             background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 10px;
+            border-radius: 8px;
             padding: 12px 16px;
             margin-bottom: 12px;
         }
@@ -277,8 +281,8 @@
             content: '';
             position: absolute;
             left: 5px; top: 16px; bottom: -10px;
-            width: 2px;
-            background: var(--border);
+            width: 1.5px;
+            background: #94a3b8;
         }
 
         .timeline-step:last-child::before { display: none; }
@@ -288,20 +292,20 @@
             left: 0; top: 3px;
             width: 11px; height: 11px;
             border-radius: 50%;
-            background: var(--bg-primary);
-            border: 2px solid var(--cyan);
+            background: #ffffff;
+            border: 2.5px solid #000000;
         }
 
         .timeline-title {
             font-size: 12px;
-            font-weight: 700;
-            color: #ffffff;
+            font-weight: 800;
+            color: #000000;
             margin-bottom: 1px;
         }
 
         .timeline-desc {
             font-size: 11px;
-            color: var(--text-muted);
+            color: var(--text-secondary);
             line-height: 1.35;
         }
 
@@ -314,24 +318,25 @@
 
         .check-item {
             background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 8px;
+            border: 1px solid var(--border-light);
+            border-radius: 6px;
             padding: 10px 12px;
         }
 
         .check-header {
             font-size: 11px;
-            font-weight: 700;
-            color: var(--cyan);
+            font-weight: 800;
+            color: #000000;
             margin-bottom: 3px;
             display: flex;
             align-items: center;
             gap: 4px;
+            text-transform: uppercase;
         }
 
         .check-item p {
             font-size: 10.5px;
-            color: #cbd5e1;
+            color: #334155;
             line-height: 1.35;
         }
     </style>
@@ -347,9 +352,9 @@
             <h1>VR Technical Training Bay Assessment</h1>
             <p>Aonix Practical Round Assessment Handoff &bull; Candidate: <strong>Vishnu Babu</strong></p>
             <div class="badges">
-                <span class="badge badge-cyan">Unity 6 (6000.3.20f1)</span>
-                <span class="badge badge-amber">Meta Quest Standalone</span>
-                <span class="badge badge-green">86.6 FPS &bull; Zero-GC</span>
+                <span class="badge badge-solid">Unity 6 (6000.3.20f1)</span>
+                <span class="badge">Meta Quest Standalone</span>
+                <span class="badge">86.6 FPS &bull; Zero-GC</span>
             </div>
         </div>
         <img src="images/AppIcon_VR.jpg" alt="VR App Icon" class="app-icon">
@@ -363,44 +368,36 @@
         <div class="deliverable-card">
             <span class="card-num">Deliverable 01</span>
             <h3>1. Unity Project &amp; Source Code</h3>
-            <p>Clean project preserving package manifests &amp; settings. Excludes Library, Temp, Logs, and obj folders.</p>
-            <div class="btn-group">
-                <a href="https://github.com/vishnubabu08/VR_experience.git" target="_blank" class="link-btn btn-cyan">GitHub Repo</a>
-                <a href="https://drive.google.com/file/d/1T0eKln33ZlLE8SAWyRAkYBG5GTaVO8qx/view?usp=sharing" target="_blank" class="link-btn btn-outline">Clean ZIP (Drive)</a>
-            </div>
-            <div style="margin-top: 5px; font-size: 9.5px; color: #38bdf8; font-family: monospace; background: rgba(0, 210, 255, 0.08); padding: 2px 6px; border-radius: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                VCS: plastic://vishnu08.unity/repos/VR_task%2fVR_task
-            </div>
+            <p>Complete project repository preserving package manifests, project settings &amp; scene hierarchy. Clean, decoupled architecture.</p>
+            <a href="https://github.com/vishnubabu08/VR_experience.git" target="_blank" class="link-btn btn-solid">Open GitHub Repository</a>
+            <a href="https://github.com/vishnubabu08/VR_experience.git" class="url-text">https://github.com/vishnubabu08/VR_experience.git</a>
         </div>
 
         <!-- Deliverable 2 -->
         <div class="deliverable-card">
             <span class="card-num">Deliverable 02</span>
             <h3>2. Installable Meta Quest APK</h3>
-            <p>Compiled Android ARM64 IL2CPP build for Meta Quest 2 / 3. Boots directly into training bay.</p>
-            <div class="btn-group">
-                <a href="https://drive.google.com/file/d/1T0eKln33ZlLE8SAWyRAkYBG5GTaVO8qx/view?usp=sharing" target="_blank" class="link-btn btn-amber">Download APK (Google Drive)</a>
-            </div>
+            <p>Tested Android ARM64 IL2CPP standalone build for Meta Quest 2 / 3 / Pro. Boots directly into the training bay without errors.</p>
+            <a href="https://drive.google.com/file/d/1T0eKln33ZlLE8SAWyRAkYBG5GTaVO8qx/view?usp=sharing" target="_blank" class="link-btn btn-solid">Download APK (Google Drive)</a>
+            <a href="https://drive.google.com/file/d/1T0eKln33ZlLE8SAWyRAkYBG5GTaVO8qx/view?usp=sharing" class="url-text">VRTrainingBay_Quest.apk (Drive Link)</a>
         </div>
 
         <!-- Deliverable 3 -->
         <div class="deliverable-card">
             <span class="card-num">Deliverable 03</span>
-            <h3>3. 3–5 Minute Video Demonstration</h3>
-            <p>Captures full user journey, Type-A rejection, distance recovery, restart mechanism, and scene inspection.</p>
-            <div class="btn-group">
-                <a href="https://drive.google.com/file/d/1n8ZD9GOZVR6x-WgU6cQQsXbmI5nfsYJm/view?usp=sharing" target="_blank" class="link-btn btn-cyan">Watch Video (Google Drive)</a>
-            </div>
+            <h3>3. Video Demonstration (3–5 Min)</h3>
+            <p>Complete walkthrough: Start sequence, video tutorial, Type-B socketing, dial calibration, door opening, and clean restart.</p>
+            <a href="https://drive.google.com/file/d/1n8ZD9GOZVR6x-WgU6cQQsXbmI5nfsYJm/view?usp=sharing" target="_blank" class="link-btn btn-solid">Watch Video Demonstration (Drive)</a>
+            <a href="https://drive.google.com/file/d/1n8ZD9GOZVR6x-WgU6cQQsXbmI5nfsYJm/view?usp=sharing" class="url-text">VR_TrainingVideo (Drive Link)</a>
         </div>
 
         <!-- Deliverable 4 -->
         <div class="deliverable-card">
             <span class="card-num">Deliverable 04</span>
             <h3>4. Comprehensive README.md</h3>
-            <p>Full 8-point checklist documentation: versions, controls, architecture, licences, and development notes.</p>
-            <div class="btn-group">
-                <a href="https://github.com/vishnubabu08/VR_experience/blob/master/README.md" target="_blank" class="link-btn btn-outline">View README on GitHub</a>
-            </div>
+            <p>Full 8-point checklist documentation: exact versions, controls, state machine, performance decisions, licences, and notes.</p>
+            <a href="https://github.com/vishnubabu08/VR_experience/blob/master/README.md" target="_blank" class="link-btn btn-outline">View README.md on GitHub</a>
+            <a href="https://github.com/vishnubabu08/VR_experience/blob/master/README.md" class="url-text">README.md (GitHub Master Branch)</a>
         </div>
 
     </div>
@@ -443,35 +440,32 @@
 <div class="page">
 
     <!-- VERSION CONTROL TIMELINE -->
-    <div class="section-title">Unity Version Control &amp; Engineering Evolution</div>
-    <div style="font-size: 11px; color: var(--text-muted); margin-bottom: 7px; background: rgba(255,255,255,0.03); border: 1px solid var(--border); padding: 5px 10px; border-radius: 6px;">
-        <strong>Unity Version Control (Plastic SCM):</strong> <code>plastic://vishnu08.unity/repos/VR_task%2fVR_task</code> &bull; <strong>21 Changesets (cs:0 – cs:20)</strong> on branch <code>/main</code> &bull; Owner: <code>vishnubabu1108@gmail.com</code>
-    </div>
+    <div class="section-title">Version Control &amp; Engineering Evolution</div>
     <div class="timeline-box">
         <div class="timeline-step">
             <div class="timeline-dot"></div>
-            <div class="timeline-title">Phase 1 (cs:0 &ndash; cs:5) &mdash; Project Baseline &amp; Meta Interaction SDK</div>
-            <div class="timeline-desc">Project configured on Unity 6 (6000.3.20f1) URP. Configured OpenXR with Meta Quest feature group, XR Interaction SDK, and world-space ray pointer UI controls.</div>
+            <div class="timeline-title">Phase 1 &mdash; Baseline Architecture &amp; Meta Interaction SDK</div>
+            <div class="timeline-desc">Configured project on Unity 6 (6000.3.20f1) URP. Configured OpenXR with Meta Quest feature group, XR Interaction SDK, and world-space ray pointer UI controls.</div>
         </div>
         <div class="timeline-step">
             <div class="timeline-dot"></div>
-            <div class="timeline-title">Phase 2 (cs:6 &ndash; cs:9) &mdash; Interaction Controls &amp; Distance Safety</div>
-            <div class="timeline-desc">Built ray pointer interaction system, Touch controller bindings, and added <code>DistanceRecovery.cs</code> to prevent cells from falling through floor bounds.</div>
+            <div class="timeline-title">Phase 2 &mdash; Power Cell Sockets, Reject Mechanism &amp; Safety Bounds</div>
+            <div class="timeline-desc">Implemented <code>CellSocket.cs</code> with type validation (Type-B Hex accepted, Type-A Round rejected with haptic buzz and red LED). Added <code>DistanceRecovery.cs</code> to prevent floor clipping.</div>
         </div>
         <div class="timeline-step">
             <div class="timeline-dot"></div>
-            <div class="timeline-title">Phase 3 (cs:10 &ndash; cs:11) &mdash; Calibration Dial Precision &amp; Constraints</div>
-            <div class="timeline-desc">Engineered <code>CalibrationDial.cs</code> with 70&deg;&ndash;85&deg; target tolerance, 1.0s continuous hold requirement, and rotation transformer constraints.</div>
+            <div class="timeline-title">Phase 3 &mdash; Calibration Dial Precision &amp; Door Automation</div>
+            <div class="timeline-desc">Engineered <code>CalibrationDial.cs</code> with 70&deg;&ndash;85&deg; target tolerance, 1.0s continuous hold requirement, and <code>TripleDialCoordinator.cs</code> driving the blast door motors.</div>
         </div>
         <div class="timeline-step">
             <div class="timeline-dot"></div>
-            <div class="timeline-title">Phase 4 (cs:12 &ndash; cs:15) &mdash; Power Cell Sockets &amp; Type-A Rejection</div>
-            <div class="timeline-desc">Implemented <code>CellSocket.cs</code> with Type-B Hex validation and Type-A rejection mechanics (haptic buzz, audio error, red LED). Added scale compensation.</div>
+            <div class="timeline-title">Phase 4 &mdash; Zero-GC Optimization &amp; Restart State Management</div>
+            <div class="timeline-desc">Created dedicated <code>RestartButtonHandler.cs</code> with reflection-based transformer zeroing to enforce consistent right-side dial rotation and console anchoring. Zero-GC physics buffer pooling.</div>
         </div>
         <div class="timeline-step">
             <div class="timeline-dot"></div>
-            <div class="timeline-title">Phase 5 (cs:16 &ndash; cs:20) &mdash; Automation, Zero-GC Optimization &amp; Standalone APK</div>
-            <div class="timeline-desc">Blast doors coordinator, video screen render texture, <code>RestartButtonHandler.cs</code> dial anchoring, shader multiview fixes, and 86.6 FPS standalone Quest build.</div>
+            <div class="timeline-title">Phase 5 &mdash; Standalone Quest Build &amp; URP Shader Multiview Compliance</div>
+            <div class="timeline-desc">Added single-pass stereo instancing macros to <code>InteractableOverlayGlow.shader</code>, fixed UniversalPipeline tags, and generated custom <code>AppIcon_VR</code> for standalone APK launcher.</div>
         </div>
     </div>
 
