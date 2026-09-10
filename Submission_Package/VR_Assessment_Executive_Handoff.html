@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aonix Practical Assessment - VR Technical Training Bay Handoff</title>
+    <style>
+        :root {
+            --bg-primary: #0a0e17;
+            --bg-secondary: #111726;
+            --bg-card: #162035;
+            --cyan: #00d2ff;
+            --amber: #ff9d00;
+            --green: #00e676;
+            --text-main: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #23324d;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            -webkit-print-color-adjust: exact !important;
+            print-color-adjust: exact !important;
+        }
+
+        @page {
+            size: A4 portrait;
+            margin: 10mm;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.45;
+            padding: 15px;
+        }
+
+        .page {
+            page-break-after: always;
+            max-width: 960px;
+            margin: 0 auto;
+        }
+
+        .page:last-child {
+            page-break-after: avoid;
+        }
+
+        /* HEADER */
+        .header {
+            background: linear-gradient(135deg, #111726, #162035);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 16px 20px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--cyan), var(--amber));
+        }
+
+        .header-title h1 {
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 4px;
+        }
+
+        .header-title p {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .badges {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
+        }
+
+        .badge {
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .badge-cyan { background: rgba(0, 210, 255, 0.15); color: var(--cyan); border: 1px solid rgba(0, 210, 255, 0.4); }
+        .badge-amber { background: rgba(255, 157, 0, 0.15); color: var(--amber); border: 1px solid rgba(255, 157, 0, 0.4); }
+        .badge-green { background: rgba(0, 230, 118, 0.15); color: var(--green); border: 1px solid rgba(0, 230, 118, 0.4); }
+
+        .app-icon {
+            width: 72px;
+            height: 72px;
+            border-radius: 16px;
+            border: 2px solid rgba(0, 210, 255, 0.5);
+            box-shadow: 0 4px 15px rgba(0, 210, 255, 0.3);
+            object-fit: cover;
+        }
+
+        .section-title {
+            font-size: 14px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            margin: 12px 0 8px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #ffffff;
+        }
+
+        .section-title::before {
+            content: '';
+            width: 4px;
+            height: 14px;
+            background: var(--cyan);
+            border-radius: 2px;
+        }
+
+        /* 4 DELIVERABLES GRID */
+        .deliverables-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .deliverable-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 14px;
+            position: relative;
+        }
+
+        .card-num {
+            position: absolute;
+            top: 10px; right: 10px;
+            font-size: 10px;
+            font-weight: 700;
+            color: var(--cyan);
+            background: rgba(0, 210, 255, 0.12);
+            padding: 2px 6px;
+            border-radius: 4px;
+        }
+
+        .deliverable-card h3 {
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 3px;
+            color: #ffffff;
+        }
+
+        .deliverable-card p {
+            font-size: 11px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            line-height: 1.35;
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 6px;
+        }
+
+        .link-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            flex: 1;
+            padding: 7px 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 600;
+            text-decoration: none;
+            text-align: center;
+        }
+
+        .btn-cyan { background: var(--cyan); color: #0a0e17; }
+        .btn-amber { background: var(--amber); color: #0a0e17; }
+        .btn-outline {
+            background: rgba(255,255,255,0.05);
+            color: var(--text-main);
+            border: 1px solid var(--border);
+        }
+
+        /* METRICS ROW */
+        .perf-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin-bottom: 10px;
+        }
+
+        .perf-stat {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .perf-val {
+            font-size: 17px;
+            font-weight: 800;
+            color: var(--green);
+        }
+
+        .perf-label {
+            font-size: 9px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            color: var(--text-muted);
+        }
+
+        /* EVIDENCE IMAGES */
+        .img-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .img-card {
+            background: var(--bg-secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .img-card img {
+            width: 100%;
+            height: 155px;
+            object-fit: contain;
+            background: #000;
+            border-radius: 6px;
+            margin-bottom: 4px;
+        }
+
+        .img-caption {
+            font-size: 10px;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        /* TIMELINE */
+        .timeline-box {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 12px 16px;
+            margin-bottom: 12px;
+        }
+
+        .timeline-step {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 9px;
+        }
+
+        .timeline-step:last-child { margin-bottom: 0; }
+
+        .timeline-step::before {
+            content: '';
+            position: absolute;
+            left: 5px; top: 16px; bottom: -10px;
+            width: 2px;
+            background: var(--border);
+        }
+
+        .timeline-step:last-child::before { display: none; }
+
+        .timeline-dot {
+            position: absolute;
+            left: 0; top: 3px;
+            width: 11px; height: 11px;
+            border-radius: 50%;
+            background: var(--bg-primary);
+            border: 2px solid var(--cyan);
+        }
+
+        .timeline-title {
+            font-size: 12px;
+            font-weight: 700;
+            color: #ffffff;
+            margin-bottom: 1px;
+        }
+
+        .timeline-desc {
+            font-size: 11px;
+            color: var(--text-muted);
+            line-height: 1.35;
+        }
+
+        /* CHECKLIST GRID */
+        .checklist-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
+
+        .check-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px 12px;
+        }
+
+        .check-header {
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--cyan);
+            margin-bottom: 3px;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .check-item p {
+            font-size: 10.5px;
+            color: #cbd5e1;
+            line-height: 1.35;
+        }
+    </style>
+</head>
+<body>
+
+<!-- PAGE 1: EXECUTIVE OVERVIEW, ALL 4 DELIVERABLES & PERFORMANCE EVIDENCE -->
+<div class="page">
+    
+    <!-- HEADER -->
+    <div class="header">
+        <div class="header-title">
+            <h1>VR Technical Training Bay Assessment</h1>
+            <p>Aonix Practical Round Assessment Handoff &bull; Candidate: <strong>Vishnu Babu</strong></p>
+            <div class="badges">
+                <span class="badge badge-cyan">Unity 6 (6000.3.20f1)</span>
+                <span class="badge badge-amber">Meta Quest Standalone</span>
+                <span class="badge badge-green">86.6 FPS &bull; Zero-GC</span>
+            </div>
+        </div>
+        <img src="images/AppIcon_VR.jpg" alt="VR App Icon" class="app-icon">
+    </div>
+
+    <!-- ALL 4 SUBMISSION DELIVERABLES -->
+    <div class="section-title">All Four Mandatory Deliverables</div>
+    <div class="deliverables-grid">
+        
+        <!-- Deliverable 1 -->
+        <div class="deliverable-card">
+            <span class="card-num">Deliverable 01</span>
+            <h3>1. Unity Project &amp; Source Code</h3>
+            <p>Clean project preserving package manifests &amp; settings. Excludes Library, Temp, Logs, and obj folders.</p>
+            <div class="btn-group">
+                <a href="https://github.com/vishnubabu08/VR_experience.git" target="_blank" class="link-btn btn-cyan">GitHub Repo</a>
+                <a href="https://drive.google.com/drive/folders/YOUR_DRIVE_FOLDER_ID" target="_blank" class="link-btn btn-outline">Clean ZIP (Drive)</a>
+            </div>
+        </div>
+
+        <!-- Deliverable 2 -->
+        <div class="deliverable-card">
+            <span class="card-num">Deliverable 02</span>
+            <h3>2. Installable Meta Quest APK</h3>
+            <p>Compiled Android ARM64 IL2CPP build for Meta Quest 2 / 3. Boots directly into training bay.</p>
+            <div class="btn-group">
+                <a href="https://drive.google.com/drive/folders/YOUR_DRIVE_FOLDER_ID" target="_blank" class="link-btn btn-amber">Download APK (Google Drive)</a>
+            </div>
+        </div>
+
+        <!-- Deliverable 3 -->
+        <div class="deliverable-card">
+            <span class="card-num">Deliverable 03</span>
+            <h3>3. 3–5 Minute Video Demonstration</h3>
+            <p>Captures full user journey, Type-A rejection, distance recovery, restart mechanism, and scene inspection.</p>
+            <div class="btn-group">
+                <a href="https://res.cloudinary.com/YOUR_ACCOUNT/video/upload/vrtrainingbay_demo.mp4" target="_blank" class="link-btn btn-cyan">Watch Video (Cloudinary / Drive)</a>
+            </div>
+        </div>
+
+        <!-- Deliverable 4 -->
+        <div class="deliverable-card">
+            <span class="card-num">Deliverable 04</span>
+            <h3>4. Comprehensive README.md</h3>
+            <p>Full 8-point checklist documentation: versions, controls, architecture, licences, and development notes.</p>
+            <div class="btn-group">
+                <a href="https://github.com/vishnubabu08/VR_experience/blob/master/README.md" target="_blank" class="link-btn btn-outline">View README on GitHub</a>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- PERFORMANCE EVIDENCE -->
+    <div class="section-title">Standalone Quest Performance &amp; Frame Budget Proof</div>
+    <div class="perf-grid">
+        <div class="perf-stat">
+            <div class="perf-val">86.6 FPS</div>
+            <div class="perf-label">Stable FPS (Budget: 72Hz)</div>
+        </div>
+        <div class="perf-stat">
+            <div class="perf-val">11.5 ms</div>
+            <div class="perf-label">CPU Main Frame Time</div>
+        </div>
+        <div class="perf-stat">
+            <div class="perf-val">66</div>
+            <div class="perf-label">SetPass Calls (&lt; 100 Limit)</div>
+        </div>
+        <div class="perf-stat">
+            <div class="perf-val">0 B</div>
+            <div class="perf-label">Steady-State GC Alloc</div>
+        </div>
+    </div>
+
+    <div class="img-row">
+        <div class="img-card">
+            <img src="images/Profiler_Capture.png" alt="Unity CPU Profiler">
+            <div class="img-caption">Profiler: Frame Time &lt; 12ms, 0ms Garbage Collector Spikes</div>
+        </div>
+        <div class="img-card">
+            <img src="images/Stats_Overlay.png" alt="Game View Statistics">
+            <div class="img-caption">Game View Stats: 86.6 FPS, 255 Batches, 66 SetPass Calls</div>
+        </div>
+    </div>
+
+</div>
+
+<!-- PAGE 2: VERSION CONTROL EVOLUTION & FULL 8-POINT README SUMMARY -->
+<div class="page">
+
+    <!-- VERSION CONTROL TIMELINE -->
+    <div class="section-title">Version Control &amp; Engineering Evolution</div>
+    <div class="timeline-box">
+        <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-title">Phase 1 &mdash; Baseline Architecture &amp; Meta Interaction SDK</div>
+            <div class="timeline-desc">Configured project on Unity 6 (6000.3.20f1) URP. Configured OpenXR with Meta Quest feature group, XR Interaction SDK, and world-space ray pointer UI controls.</div>
+        </div>
+        <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-title">Phase 2 &mdash; Power Cell Sockets, Reject Mechanism &amp; Safety Bounds</div>
+            <div class="timeline-desc">Implemented <code>CellSocket.cs</code> with type validation (Type-B Hex accepted, Type-A Round rejected with haptic buzz and red LED). Added <code>DistanceRecovery.cs</code> to prevent floor clipping.</div>
+        </div>
+        <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-title">Phase 3 &mdash; Calibration Dial Precision &amp; Door Automation</div>
+            <div class="timeline-desc">Engineered <code>CalibrationDial.cs</code> with 70&deg;&ndash;85&deg; target tolerance, 1.0s continuous hold requirement, and <code>TripleDialCoordinator.cs</code> driving the blast door motors.</div>
+        </div>
+        <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-title">Phase 4 &mdash; Zero-GC Optimization &amp; Restart State Management</div>
+            <div class="timeline-desc">Created dedicated <code>RestartButtonHandler.cs</code> with reflection-based transformer zeroing to enforce consistent right-side dial rotation and console anchoring. Zero-GC physics buffer pooling.</div>
+        </div>
+        <div class="timeline-step">
+            <div class="timeline-dot"></div>
+            <div class="timeline-title">Phase 5 &mdash; Standalone Quest Build &amp; URP Shader Multiview Compliance</div>
+            <div class="timeline-desc">Added single-pass stereo instancing macros to <code>InteractableOverlayGlow.shader</code>, fixed UniversalPipeline tags, and generated custom <code>AppIcon_VR</code> for standalone APK launcher.</div>
+        </div>
+    </div>
+
+    <!-- 8-POINT README SUMMARY -->
+    <div class="section-title">README Checklist &amp; Technical Architecture Summary</div>
+    <div class="checklist-grid">
+        <div class="check-item">
+            <div class="check-header">&check; 1. Baseline &amp; Versions</div>
+            <p><strong>Unity 6 (6000.3.20f1)</strong> URP &bull; Scripting: IL2CPP / .NET Standard 2.1 &bull; Meta XR Core &amp; Interaction SDK v72+ &bull; OpenXR 1.14+.</p>
+        </div>
+        <div class="check-item">
+            <div class="check-header">&check; 2. Controls &amp; Flow</div>
+            <p>Laser pointer with Trigger/A to click UI buttons. Grip button to grasp power cells and turn dials right into 70&deg;&ndash;85&deg;. Complete cycle &rarr; Restart cleanly resets scene.</p>
+        </div>
+        <div class="check-item">
+            <div class="check-header">&check; 3. Architecture &amp; State</div>
+            <p>Decoupled state machine (<code>AssessmentManager</code>) driven by UnityEvents. <code>CellSocket</code> handles scale-compensated parenting. <code>RestartButtonHandler</code> resets dials via reflection.</p>
+        </div>
+        <div class="check-item">
+            <div class="check-header">&check; 4. Device &amp; Runtime Verified</div>
+            <p>Verified on Meta Quest via Meta Horizon Link, XR Simulator, and Standalone ARM64 APK. Confirmed 72Hz+ locked, 0 B runtime GC alloc.</p>
+        </div>
+        <div class="check-item">
+            <div class="check-header">&check; 5. 3 Concrete Optimizations</div>
+            <p>1. Zero-GC in core loop (NonAlloc physics). 2. MaterialPropertyBlock for dynamic glows preserving SRP batching. 3. Kinematic locking on console dials.</p>
+        </div>
+        <div class="check-item">
+            <div class="check-header">&check; 6. Asset Credits &amp; Licences</div>
+            <p>Kenney Prototype Kit (CC0 Public Domain). Mixkit Audio (Free Commercial License). Meta XR Interaction SDK (Meta Technologies License).</p>
+        </div>
+        <div class="check-item">
+            <div class="check-header">&check; 7. Known Issues &amp; Next Steps</div>
+            <p>Add Meta synthetic hand poses (<code>HandGrabPose</code>), upgrade procedural rumble to pre-authored <code>.haptic</code> audio clips, bake mixed lightmaps for Quest 2.</p>
+        </div>
+        <div class="check-item">
+            <div class="check-header">&check; 8. Development Notes</div>
+            <p>IDE tooling and code completion assistants were used for boilerplate syntax and math formulas. All architecture, interactions, physics, and state flows were engineered directly in Unity.</p>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
