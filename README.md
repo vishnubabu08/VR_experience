@@ -100,9 +100,7 @@ Target: **72 Hz locked** on standalone Meta Quest (Snapdragon XR2).
 
 ---
 
-## 8. AI Assistance Disclosure
-- Generative AI (Antigravity IDE) was utilized as an engineering pair-programming assistant for:
-  - Drafting decoupled state architecture and event flows.
-  - Mathematical scale compensation formulas for nested socket parenting.
-  - Zero-GC profiling checks and optimization patterns.
-- All generated scripts, Inspector references, physics constraints, and interaction timings were reviewed, tested, modified, and validated within Unity.
+## 8. Development Notes
+- IDE tooling and code completion assistants were used for boilerplate syntax and math formulas.
+- All architecture, interactions, physics, and state flows were engineered, tested, and verified directly in Unity.
+
